@@ -1,5 +1,8 @@
-const express = require('express')
-const router = express.Router()
+// const express = require('express')
+// const router = express.Router()
+// const userRoutes = require('./user')
 
-// prefix('/')
-module.exports = router
+// // prefix('/')
+// router.use('/user', userRoutes)
+// // router.use('/auth')
+// module.exports = router
