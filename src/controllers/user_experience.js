@@ -25,7 +25,7 @@ module.exports = {
     console.log(setData);
     try {
       const result = await addExperiencesUser(setData)
-      return response(res, true, result.insertId, 200)
+      return response(res, true, `Experience added successfully`, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
     }
