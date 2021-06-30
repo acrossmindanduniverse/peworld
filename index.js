@@ -18,7 +18,7 @@ app.use(bodyParser.json())
 app.use('/', routes)
 
 app.listen(port, () => {
-  console.log(`App runningg on port ${port}`)
+  console.log(`App running on port ${port}`)
 })
 
 connection.connect(function (err) {
