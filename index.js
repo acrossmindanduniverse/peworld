@@ -1,8 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = 8080
-// const env = process.env
+const port = 8880
+const env = process.env
 const bodyParser = require('body-parser')
 const routes = require('./src/routes')
 const cors = require('cors')
@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
+app.use(env.APP_UPLOAD_ROUTE, express.static(path.join(__dirname, env.APP_UPLOAD_PATH)))
 app.use('/', routes)
 
 app.listen(port, () => {
