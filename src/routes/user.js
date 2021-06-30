@@ -8,6 +8,7 @@ router.get('/talent/', userController.getTalentList)
 router.get('/talent/:id', userController.getDetailTalent)
 router.get('/talent/skill/:id', userController.getTalentSkill)
 router.get('/talent/experience/:idUser', userExperienceController.getExperiencesByIdUser)
+router.post('/talent/experience/:idUser', userExperienceController.createExperienceUser)
 router.get('/talent/portofolio/:idUser', userPortofolioController.getPortofoliosByIdUser)
 
 module.exports = router
