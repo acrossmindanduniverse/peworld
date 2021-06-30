@@ -4,10 +4,9 @@ const { getExperiencesByIdUser, addExperiencesUser } = require('../models/user_e
 module.exports = {
 
   getExperiencesByIdUser: async (req, res) => {
-    const { idUser: stringId } = req.params
-    const id = parseInt(stringId)
+    const id_user = req.authUser.result.id
     try {
-      const result = await getExperiencesByIdUser(id)
+      const result = await getExperiencesByIdUser(id_user)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
@@ -15,11 +14,10 @@ module.exports = {
   },
 
   createExperienceUser: async (req, res) => {
-    const { idUser: stringId } = req.params
-    const id = parseInt(stringId)
+    console.log(req.authUser)
     const data = req.body
     const setData = {
-      id_user: id,
+      id_user: req.authUser.result.id,
       ...data
     }
     console.log(setData)

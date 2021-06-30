@@ -5,8 +5,6 @@ module.exports = {
 
   getPortofoliosByIdUser: async (req, res) => {
     const id_user = req.authUser.result.id
-    console.log(id_user)
-    const { idUser: id } = req.params
     try {
       const result = await getPortofoliosByIdUser(id_user)
       return response(res, true, result, 200)
