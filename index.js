@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = 8080
-// const env = process.env
 const bodyParser = require('body-parser')
 const routes = require('./src/routes')
 const cors = require('cors')

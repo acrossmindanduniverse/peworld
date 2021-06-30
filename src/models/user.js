@@ -1,4 +1,7 @@
 const db = require('../helpers/db')
+const { promisify } = require('util')
+
+const execPromise = promisify(db.query).bind(db)
 
 exports.getTalentById = (id, cb) => {
   db.query(`
@@ -35,4 +38,8 @@ LEFT JOIN user_skill ON user_talent.id_user = user_skill.id_user
 LEFT JOIN skill ON user_skill.id_skill = skill.id
 WHERE skill.skill_name LIKE "%${skill}%"
   `, cb)
+}
+
+exports.getDetailRecruiter = (id) => {
+  return execPromise('UPDATE user_experience SET ? WHERE id_user=?', [id])
 }
