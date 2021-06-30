@@ -4,6 +4,7 @@ const app = express()
 const port = 8880
 const env = process.env
 const bodyParser = require('body-parser')
+const path = require('path')
 const routes = require('./src/routes')
 const cors = require('cors')
 const connection = require('./src/helpers/db')
