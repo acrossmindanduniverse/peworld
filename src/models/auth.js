@@ -6,7 +6,7 @@ const execPromise = promisify(db.query).bind(db)
 module.exports = {
 
   talentRegister: (data) => {
-    return execPromise('INSERT INTO user (Email, full_name, password, role, phone_number) VALUE (?, ?, ?, ?, ?)', [data.Email, data.full_name, data.password, data.role, data.phone_number])
+    return execPromise('INSERT INTO user SET ?', [data])
   },
 
   recruiterRegister: (data) => {
