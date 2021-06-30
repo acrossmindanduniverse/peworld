@@ -22,10 +22,10 @@ module.exports = {
       id_user: id,
       ...data
     }
-    console.log(setData);
+    console.log(setData)
     try {
       const result = await addExperiencesUser(setData)
-      return response(res, true, `Experience added successfully`, 200)
+      return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
     }
