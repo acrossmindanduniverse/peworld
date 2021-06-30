@@ -19,5 +19,4 @@ module.exports = {
       pageInfo: result.pageInfo
     })
   }
-
 }
