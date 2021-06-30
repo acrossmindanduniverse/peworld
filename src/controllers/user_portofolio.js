@@ -4,10 +4,11 @@ const { getPortofoliosByIdUser, addPortofoliosUser } = require('../models/user_p
 module.exports = {
 
   getPortofoliosByIdUser: async (req, res) => {
-    const { idUser: stringId } = req.params
-    const id = parseInt(stringId)
+    const id_user = req.authUser.result.id
+    console.log(id_user)
+    const { idUser: id } = req.params
     try {
-      const result = await getPortofoliosByIdUser(id)
+      const result = await getPortofoliosByIdUser(id_user)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
@@ -15,7 +16,7 @@ module.exports = {
   },
 
   createExperienceUser: async function (req, res) {
-    console.log(req.authUser.result.id)
+    console.log(req.authUser)
     const data = req.body
     data.picture = req.file.filename
     const setData = {
@@ -28,8 +29,8 @@ module.exports = {
       return response(res, true, result, 200)
     } catch (error) {
       console.log(error);
-      return response(res, false, 'An error occured', 500)
-    }
-  }
 
+    }
+  },
+  
 }

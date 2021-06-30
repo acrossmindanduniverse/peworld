@@ -30,5 +30,4 @@ module.exports = {
       return response(res, false, 'An error occured', 500)
     }
   }
-
 }
