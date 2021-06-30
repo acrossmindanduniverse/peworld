@@ -9,7 +9,8 @@ module.exports = {
 
   talentRegister: async (req, res) => {
     const setData = req.body
-    setData.role = setData.role ? 'admin' : 'talent'
+    setData.role = 'talent'
+    setData.password = await bcrypt.hash(setData.password, await bcrypt.genSalt())
     try {
       const result = await await authModels.talentRegister(setData)
       return helper.response(res, true, result, 200)
@@ -40,7 +41,7 @@ module.exports = {
       if (result.length < 1) return helper.response(res, false, 'Email or password did not match to the record', 400)
       const compare = await bcrypt.compare(password, user.password)
       if (compare) {
-        const userData = jwt.sign({ id: user.id, role: user.role, fullName: user.full_name }, env.APP_KEY)
+        const userData = jwt.sign({ id: user.id, role: user.role, fullName: user.full_name, company: user.company, sector: user.sector }, env.APP_KEY)
         if (userData) {
           const payload = jwt.verify(userData, env.APP_KEY)
           const token = createNewToken(
@@ -54,10 +55,12 @@ module.exports = {
           }
           return helper.response(res, true, data, 200)
         }
+      } else {
+        return helper.response(res, false, 'Email or password did not match to the record', 400)
       }
     } catch (err) {
       console.log(err)
-      return helper.response(res, false, 'Email or password did not match to the record', 400)
+      return helper.response(res, false, 'Internal Server Error', 500)
     }
   }
 
