@@ -1,14 +1,13 @@
 const { response } = require('../helpers')
 const env = process.env
 const { getPortofoliosByIdUser, getPortofolioById, updateUserPortofolio } = require('../models/user_portofolio')
-// const { addPortofoliosUser } = require('../models/user_portofolio')
 
 module.exports = {
 
   getPortofoliosByIdUser: async (req, res) => {
-    const id_user = req.authUser.result.id
+    const idUser = req.authUser.result.id
     try {
-      const result = await getPortofoliosByIdUser(id_user)
+      const result = await getPortofoliosByIdUser(idUser)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
