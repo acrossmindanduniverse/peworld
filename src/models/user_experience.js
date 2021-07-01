@@ -11,6 +11,22 @@ module.exports = {
 
   addExperiencesUser: (data) => {
     return execPromise('INSERT INTO user_experience (`id_user`, `position`, `company_name`, `start_join`, `end`, `description`) VALUES (?,?,?,?,?,?)', [data.id_user, data.position, data.company_name, data.start_join, data.end, data.description])
+  },
+
+  getUserExperienceId: (id, cb) => {
+    return execPromise('SELECT id, id_user, position, company_name FROM user_experience WHERE id=?', id, cb)
+  },
+
+  updateUserExperience: (data, id) => {
+    db.query('UPDATE user_experience SET ? WHERE id=?', [data, id])
+  },
+
+  getUserExperienceIdForDelete: (id, cb) => {
+    return execPromise('SELECT * FROM user_experience WHERE id=?', [id], cb)
+  },
+
+  deleteUserExperience: (id) => {
+    db.query('DELETE FROM user_experience WHERE id=?', [id])
   }
 
 }
