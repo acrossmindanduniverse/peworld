@@ -18,8 +18,15 @@ module.exports = {
     const errValidate = validationResult(req)
     try {
       if (!errValidate.isEmpty()) return helpers.response(res, false, errValidate.errors[0].msg, 400)
-      const result = await await authModels.talentRegister(setData)
-      return helpers.response(res, true, { result, registered }, 200)
+      authModels.talentRegister(setData, (error, resId) => {
+        console.log(error)
+        if (!error) {
+          const result = authModels.postToUserTalent(resId.insertId)
+          return helpers.response(res, true, { result, registered }, 200)
+        } else {
+          return helpers.response(res, false, 'An error occured', 500)
+        }
+      })
     } catch (err) {
       console.log(err)
       return helpers.response(res, false, 'failed to create account', 400)
@@ -38,7 +45,6 @@ module.exports = {
       if (!errValidate.isEmpty()) return helpers.response(res, false, errValidate.errors[0].msg, 400)
       authModels.recruiterRegister(setData, (_, resId) => {
         const result = authModels.postToUserRecruiter(resId.insertId)
-        console.log(resId)
         return helpers.response(res, true, { result, registered }, 200)
       })
     } catch (err) {
