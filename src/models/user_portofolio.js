@@ -19,6 +19,12 @@ module.exports = {
 
   addPortofoliosUser: (data) => {
     return execPromise('INSERT INTO user_portofolio(`id_user`, `app_name`, `link_repo`, `type`, `picture`) VALUES (?,?,?,?,?)', [data.id_user, data.app_name, data.link_repo, data.type, data.picture])
+  },
+
+  deletePortofoliosUser: (idPort, idUser) => {
+    return execPromise(`
+    DELETE FROM user_portofolio WHERE id=? AND id_user=?
+    `, [idPort, idUser])
   }
 
 }

@@ -1,7 +1,6 @@
 const { response } = require('../helpers')
 const env = process.env
-const { getPortofoliosByIdUser, getPortofolioById, updateUserPortofolio } = require('../models/user_portofolio')
-const { addPortofoliosUser } = require('../models/user_portofolio')
+const { getPortofoliosByIdUser, addPortofoliosUser, getPortofolioById, updateUserPortofolio, deletePortofoliosUser } = require('../models/user_portofolio')
 
 module.exports = {
 
@@ -9,6 +8,33 @@ module.exports = {
     const idUser = req.authUser.result.id
     try {
       const result = await getPortofoliosByIdUser(idUser)
+      return response(res, true, result, 200)
+    } catch (err) {
+      return response(res, false, 'An error occured', 500)
+    }
+  },
+
+  createPortofolioUser: async function (req, res) {
+    console.log(req.authUser)
+    const data = req.body
+    data.picture = req.file.filename
+    const setData = {
+      id_user: req.authUser.result.id,
+      ...data
+    }
+    console.log(setData)
+    try {
+      const result = await addPortofoliosUser(setData)
+      return response(res, true, result, 200)
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  deletePortofoliosUser: async (req, res) => {
+    const idUser = req.authUser.result.id
+    const idPort = req.query.param
+    try {
+      const result = await deletePortofoliosUser(idPort, idUser)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
@@ -31,23 +57,6 @@ module.exports = {
     } catch (err) {
       console.log(err)
       return response(res, false, 'An error occured')
-    }
-  },
-
-  createExperienceUser: async function (req, res) {
-    console.log(req.authUser)
-    const data = req.body
-    data.picture = req.file.filename
-    const setData = {
-      id_user: req.authUser.result.id,
-      ...data
-    }
-    console.log(setData)
-    try {
-      const result = await addPortofoliosUser(setData)
-      return response(res, true, result, 200)
-    } catch (error) {
-      console.log(error)
     }
   }
 
