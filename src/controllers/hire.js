@@ -4,11 +4,11 @@ const { addHire } = require('../models/hire')
 module.exports = {
 
   createHire: async (req, res) => {
-    const { id : id_user_talent } = req.params
+    const { id: idUserTalent } = req.params
     console.log(req.authUser)
     const data = req.body
     const setData = {
-      id_user_talent: id_user_talent,
+      id_user_talent: idUserTalent,
       id_user_recruiter: req.authUser.result.id,
       ...data
     }
