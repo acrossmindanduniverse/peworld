@@ -78,7 +78,6 @@ exports.updateUser = (req, res) => {
   console.log(setDataUser, '1')
   console.log(setDataUserRecruiter, '2')
   userModel.getUserById(id, (err, results) => {
-    if (err) throw err
     if (!err) {
       if (results.length > 0) {
         userModel.updateUser(setDataUser, id, (err, results) => {
@@ -101,5 +100,18 @@ exports.updateUser = (req, res) => {
     } else {
       return response(res, false, 'An error occured', 500)
     }
+  })
+}
+
+exports.updateProfile = (req, res) => {
+  const id = req.authUser.result.id
+  const { fullName, address, company, jobDesk, jobType, description } = req.body
+  const finalData = { id, fullName, address, jobDesk, jobType, company, description }
+  userModel.updateProfileMain(finalData, (err, results) => {
+    if (err) throw err
+  })
+  userModel.updateProfileDetail(finalData, (err, results) => {
+    if (err) throw err
+    response(res, true, 'profle updated', 200)
   })
 }

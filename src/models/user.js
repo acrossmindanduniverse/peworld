@@ -55,3 +55,15 @@ exports.updateUser = (data, id, cb) => {
 exports.getUserById = (id, cb) => {
   db.query('SELECT * FROM user WHERE id=?', [id], cb)
 }
+
+exports.updateProfileMain = (data, cb) => {
+  db.query(`
+  UPDATE ?? SET full_name=?, company=? WHERE id = ?
+  `, ['user', data.fullName, data.company, data.id], cb)
+}
+
+exports.updateProfileDetail = (data, cb) => {
+  db.query(`
+  UPDATE ?? SET job_desk=?,address=?,description=?,job_type=? WHERE id_user = ?
+  `, ['user_talent', data.jobDesk, data.address, data.description, data.jobType, data.id], cb)
+}
