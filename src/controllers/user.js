@@ -57,3 +57,16 @@ exports.getTalentList = (req, res) => {
     }
   })
 }
+
+exports.updateProfile = (req, res) => {
+  const id = req.authUser.result.id
+  const { fullName, address, company, jobDesk, jobType, description } = req.body
+  const finalData = { id, fullName, address, jobDesk, jobType, company, description }
+  userModel.updateProfileMain(finalData, (err, results) => {
+    if (err) throw err
+  })
+  userModel.updateProfileDetail(finalData, (err, results) => {
+    if (err) throw err
+    response(res, true, 'profle updated', 200)
+  })
+}

@@ -7,6 +7,7 @@ const userExperienceController = require('../controllers/user_experience')
 const userPortofolioController = require('../controllers/user_portofolio')
 
 router.get('/talent/', userController.getTalentList)
+router.put('/talent/', verifyJwt, userController.updateProfile)
 router.get('/talent/portofolio', verifyJwt, userPortofolioController.getPortofoliosByIdUser)
 router.get('/talent/experience', verifyJwt, userExperienceController.getExperiencesByIdUser)
 router.delete('/talent/portofolio/:idPort', verifyJwt, userPortofolioController.deletePortofoliosUser)
