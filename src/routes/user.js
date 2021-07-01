@@ -13,6 +13,6 @@ router.delete('/talent/portofolio/:idPort', verifyJwt, userPortofolioController.
 router.get('/talent/:id', userController.getDetailTalent)
 router.get('/talent/skill/:id', userController.getTalentSkill)
 router.post('/talent/experience', verifyJwt, userExperienceController.createExperienceUser)
-router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPortofolioController.createExperienceUser)
+router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPortofolioController.createPortofolioUser)
 
 module.exports = router
