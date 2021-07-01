@@ -21,6 +21,7 @@ router.post('/talent/experience', verifyJwt, userExperienceController.createExpe
 router.delete('/talent/portofolio/:idPort', verifyJwt, userPortofolioController.deletePortofoliosUser)
 router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPortofolioController.createPortofolioUser)
 
-router.put('/recruiter', verifyJwt, userController.updateUser)
+router.put('/recruiter', verifyJwt, userController.updateUserRecruiter)
+router.patch('/recruiter/image', verifyJwt, upload.single('picture'), userController.updateUserRecruiterImage)
 
 module.exports = router

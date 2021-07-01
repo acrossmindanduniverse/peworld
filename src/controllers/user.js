@@ -69,7 +69,7 @@ exports.getDetailRecruiter = async (req, res) => {
   }
 }
 
-exports.updateUser = (req, res) => {
+exports.updateUserRecruiter = (req, res) => {
   const id = req.authUser.result.id
   const data = req.body
   const setDataUser = {
@@ -106,7 +106,43 @@ exports.updateUser = (req, res) => {
           }
         })
       } else {
-        return response(res, false, 'talent not found', 404)
+        return response(res, false, 'user not found', 404)
+      }
+    } else {
+      return response(res, false, 'An error occured', 500)
+    }
+  })
+}
+
+exports.updateUserRecruiterImage = (req, res) => {
+  const id = req.authUser.result.id
+  req.body.picture = req.file.filename
+  const key = Object.keys(req.body)
+  const lastColumn = key[0]
+  const updateData = { id, [lastColumn]: req.body[lastColumn] }
+  userModel.getUserRecruiterById(id, (err, results) => {
+    if (!err) {
+      if (results.length > 0) {
+        if (results[0].picture === '') {
+          userModel.updateUserRecruiterImage(updateData, (err, results) => {
+            if (!err) {
+              return response(res, true, results, 200)
+            } else {
+              return response(res, false, 'An error occured', 500)
+            }
+          })
+        } else {
+          // pake fs
+          userModel.updateUserRecruiterImage(updateData, (err, results) => {
+            if (!err) {
+              return response(res, true, results, 200)
+            } else {
+              return response(res, false, 'An error occured', 500)
+            }
+          })
+        }
+      } else {
+        return response(res, false, 'user not found', 404)
       }
     } else {
       return response(res, false, 'An error occured', 500)

@@ -56,6 +56,16 @@ exports.getUserById = (id, cb) => {
   db.query('SELECT * FROM user WHERE id=?', [id], cb)
 }
 
+exports.getUserRecruiterById = (id, cb) => {
+  db.query('SELECT * FROM user_recruiter WHERE id_user=?', [id], cb)
+}
+
+exports.updateUserRecruiterImage = (data, cb) => {
+  const key = Object.keys(data)
+  const lastColumn = key[key.length - 1]
+  db.query(`UPDATE user_recruiter SET ${lastColumn}=? WHERE id_user=?`, [[data[lastColumn]], data.id], cb)
+}
+
 exports.updateProfileMain = (data, cb) => {
   db.query(`
   UPDATE ?? SET full_name=?, company=? WHERE id = ?
