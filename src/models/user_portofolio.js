@@ -15,6 +15,10 @@ module.exports = {
 
   updateUserPortofolio: (data, id) => {
     db.query('UPDATE user_portofolio SET ? WHERE id=?', [data, id])
+  },
+
+  addPortofoliosUser: (data) => {
+    return execPromise('INSERT INTO user_portofolio(`id_user`, `app_name`, `link_repo`, `type`, `picture`) VALUES (?,?,?,?,?)', [data.id_user, data.app_name, data.link_repo, data.type, data.picture])
   }
 
 }
