@@ -57,3 +57,49 @@ exports.getTalentList = (req, res) => {
     }
   })
 }
+
+exports.updateUser = (req, res) => {
+  const id = req.authUser.result.id
+  const data = req.body
+  const setDataUser = {
+    Email: data.Email,
+    full_name: data.full_name,
+    sector: data.sector,
+    company: data.company,
+    phone_number: data.phone_number
+  }
+  const setDataUserRecruiter = {
+    city: data.city,
+    description: data.description,
+    instagram: data.instagram,
+    linkedin: data.linkedin
+  }
+  console.log(id)
+  console.log(setDataUser, '1')
+  console.log(setDataUserRecruiter, '2')
+  userModel.getUserById(id, (err, results) => {
+    if (err) throw err
+    if (!err) {
+      if (results.length > 0) {
+        userModel.updateUser(setDataUser, id, (err, results) => {
+          if (!err) {
+            console.log(results)
+            userModel.updateUserRecruiter(setDataUserRecruiter, id, (err, results) => {
+              if (!err) {
+                return response(res, true, results, 200)
+              } else {
+                return response(res, false, 'An error occured', 500)
+              }
+            })
+          } else {
+            return response(res, false, 'An error occured', 500)
+          }
+        })
+      } else {
+        return response(res, false, 'talent not found', 404)
+      }
+    } else {
+      return response(res, false, 'An error occured', 500)
+    }
+  })
+}

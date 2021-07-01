@@ -56,7 +56,7 @@ module.exports = {
       })
     } catch (err) {
       console.log(err)
-      return response(res, false, 'An error occured')
+      return response(res, false, 'An error occured', 500)
     }
   }
 
