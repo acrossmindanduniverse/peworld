@@ -13,7 +13,7 @@ module.exports = {
     }
   },
 
-  createExperienceUser: async function (req, res) {
+  createPortofolioUser: async function (req, res) {
     console.log(req.authUser)
     const data = req.body
     data.picture = req.file.filename
