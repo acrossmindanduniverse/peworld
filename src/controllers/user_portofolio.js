@@ -1,5 +1,5 @@
 const { response } = require('../helpers')
-const { getPortofoliosByIdUser, addPortofoliosUser } = require('../models/user_portofolio')
+const { getPortofoliosByIdUser, addPortofoliosUser, deletePortofoliosUser } = require('../models/user_portofolio')
 
 module.exports = {
 
@@ -27,6 +27,16 @@ module.exports = {
       return response(res, true, result, 200)
     } catch (error) {
       console.log(error)
+    }
+  },
+  deletePortofoliosUser: async (req, res) => {
+    const idUser = req.authUser.result.id
+    const idPort = req.query.param
+    try {
+      const result = await deletePortofoliosUser(idPort, idUser)
+      return response(res, true, result, 200)
+    } catch (err) {
+      return response(res, false, 'An error occured', 500)
     }
   }
 
