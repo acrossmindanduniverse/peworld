@@ -9,6 +9,7 @@ const authMiddleware = require('../middlewares/auth')
 
 router.get('/talent/', userController.getTalentList)
 router.delete('/delete-experience/:id', authMiddleware.verifyJwt, userExperienceController.deleteUserExperience)
+router.get('/recruiter/:id', userController.getDetailRecruiter)
 router.put('/edit-experience/:id', authMiddleware.verifyJwt, userExperienceController.updateUserExperience)
 router.put('/edit-portofolio/:id', authMiddleware.verifyJwt, upload.single('picture'), userPortofolioController.updateUserPortofolio)
 router.get('/talent/portofolio', verifyJwt, userPortofolioController.getPortofoliosByIdUser)

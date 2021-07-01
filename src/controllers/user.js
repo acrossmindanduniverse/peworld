@@ -57,3 +57,14 @@ exports.getTalentList = (req, res) => {
     }
   })
 }
+
+exports.getDetailRecruiter = async (req, res) => {
+  const { id } = req.params
+  try {
+    const result = await userModel.getDetailRecruiter(id)
+    return response(res, true, result, 200)
+  } catch (err) {
+    console.log(err)
+    return response(res, false, 'user experience not found', 400)
+  }
+}

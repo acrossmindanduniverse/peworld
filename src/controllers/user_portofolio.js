@@ -1,5 +1,4 @@
 const { response } = require('../helpers')
-const env = process.env
 const { getPortofoliosByIdUser, addPortofoliosUser, getPortofolioById, updateUserPortofolio, deletePortofoliosUser } = require('../models/user_portofolio')
 
 module.exports = {
@@ -44,7 +43,7 @@ module.exports = {
   updateUserPortofolio: async (req, res) => {
     const setData = req.body
     const userId = req.authUser.result.id
-    setData.picture = `${env.APP_UPLOAD_ROUTE}/${req.file.filename}`
+    setData.picture = req.file.filename
     const { id } = req.params
     try {
       await getPortofolioById(id, (_, resId) => {
