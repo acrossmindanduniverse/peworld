@@ -27,6 +27,7 @@ module.exports = {
     } catch (err) {
       return response(res, false, 'An error occured', 500)
     }
+<<<<<<< HEAD
   },
 
   updateUserExperience: async (req, res) => {
@@ -59,5 +60,7 @@ module.exports = {
       console.log(err)
       return response(res, false, 'An error occured', 500)
     }
+=======
+>>>>>>> 3d9fe2abf7733cfed8e9335efa6e56e17cf041f8
   }
 }
