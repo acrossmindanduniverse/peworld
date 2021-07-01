@@ -8,6 +8,7 @@ const userPortofolioController = require('../controllers/user_portofolio')
 const authMiddleware = require('../middlewares/auth')
 
 router.get('/talent/', userController.getTalentList)
+router.put('/talent/', verifyJwt, userController.updateProfile)
 router.delete('/delete-experience/:id', authMiddleware.verifyJwt, userExperienceController.deleteUserExperience)
 router.get('/recruiter/:id', userController.getDetailRecruiter)
 router.put('/edit-experience/:id', authMiddleware.verifyJwt, userExperienceController.updateUserExperience)
@@ -17,9 +18,9 @@ router.get('/talent/experience', verifyJwt, userExperienceController.getExperien
 router.get('/talent/:id', userController.getDetailTalent)
 router.get('/talent/skill/:id', userController.getTalentSkill)
 router.post('/talent/experience', verifyJwt, userExperienceController.createExperienceUser)
-
 router.delete('/talent/portofolio/:idPort', verifyJwt, userPortofolioController.deletePortofoliosUser)
-
 router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPortofolioController.createPortofolioUser)
+
+router.put('/recruiter', verifyJwt, userController.updateUser)
 
 module.exports = router

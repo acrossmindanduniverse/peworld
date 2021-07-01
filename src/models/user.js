@@ -43,3 +43,27 @@ WHERE skill.skill_name LIKE "%${skill}%"
 exports.getDetailRecruiter = (id) => {
   return execPromise('SELECT user.id, role, user_recruiter.description AS user_description, full_name, company, user_recruiter.instagram AS user_instagram, user_recruiter.linkedin AS user_linkedin, sector, phone_number FROM user LEFT JOIN user_recruiter ON user_recruiter.id_user = user.id WHERE user_recruiter.id_user=?', [id])
 }
+
+exports.updateUserRecruiter = (data, id, cb) => {
+  db.query('UPDATE user_recruiter SET ? WHERE id_user=?', [data, id], cb)
+}
+
+exports.updateUser = (data, id, cb) => {
+  db.query('UPDATE user SET ? WHERE id=?', [data, id], cb)
+}
+
+exports.getUserById = (id, cb) => {
+  db.query('SELECT * FROM user WHERE id=?', [id], cb)
+}
+
+exports.updateProfileMain = (data, cb) => {
+  db.query(`
+  UPDATE ?? SET full_name=?, company=? WHERE id = ?
+  `, ['user', data.fullName, data.company, data.id], cb)
+}
+
+exports.updateProfileDetail = (data, cb) => {
+  db.query(`
+  UPDATE ?? SET job_desk=?,address=?,description=?,job_type=? WHERE id_user = ?
+  `, ['user_talent', data.jobDesk, data.address, data.description, data.jobType, data.id], cb)
+}
