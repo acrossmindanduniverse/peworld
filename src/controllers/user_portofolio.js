@@ -4,9 +4,9 @@ const { getPortofoliosByIdUser, addPortofoliosUser } = require('../models/user_p
 module.exports = {
 
   getPortofoliosByIdUser: async (req, res) => {
-    const id_user = req.authUser.result.id
+    const idUser = req.authUser.result.id
     try {
-      const result = await getPortofoliosByIdUser(id_user)
+      const result = await getPortofoliosByIdUser(idUser)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
@@ -21,14 +21,13 @@ module.exports = {
       id_user: req.authUser.result.id,
       ...data
     }
-    console.log(setData);
+    console.log(setData)
     try {
-      const result = await addPortofoliosUser(setData);
+      const result = await addPortofoliosUser(setData)
       return response(res, true, result, 200)
     } catch (error) {
-      console.log(error);
-
+      console.log(error)
     }
-  },
-  
+  }
+
 }
