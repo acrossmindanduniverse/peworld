@@ -4,9 +4,9 @@ const { getExperiencesByIdUser, addExperiencesUser, updateUserExperience, getUse
 module.exports = {
 
   getExperiencesByIdUser: async (req, res) => {
-    const id_user = req.authUser.result.id
+    const idUser = req.authUser.result.id
     try {
-      const result = await getExperiencesByIdUser(id_user)
+      const result = await getExperiencesByIdUser(idUser)
       return response(res, true, result, 200)
     } catch (err) {
       return response(res, false, 'An error occured', 500)
