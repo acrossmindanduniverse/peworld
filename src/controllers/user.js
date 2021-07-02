@@ -135,7 +135,7 @@ exports.updateUserRecruiterImage = (req, res) => {
             }
           })
         } else {
-          // pake fs
+          fs.unlinkSync(path + '/' + results[0].picture)
           userModel.updateUserRecruiterImage(updateData, (err, results) => {
             if (!err) {
               return response(res, true, results, 200)
