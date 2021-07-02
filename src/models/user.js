@@ -41,7 +41,7 @@ WHERE skill.skill_name LIKE "%${skill}%"
 }
 
 exports.getDetailRecruiter = (id) => {
-  return execPromise('SELECT user.id, role, user_recruiter.description AS user_description, full_name, company, user_recruiter.instagram AS user_instagram, user_recruiter.linkedin AS user_linkedin, sector, phone_number FROM user LEFT JOIN user_recruiter ON user_recruiter.id_user = user.id WHERE user_recruiter.id_user=?', [id])
+  return execPromise('SELECT user.id, role, user_recruiter.description AS user_description, user_recruiter.picture, full_name, company, user_recruiter.instagram AS user_instagram, user_recruiter.linkedin AS user_linkedin, sector, phone_number FROM user LEFT JOIN user_recruiter ON user_recruiter.id_user = user.id WHERE user_recruiter.id_user=?', [id])
 }
 
 exports.updateUserRecruiter = (data, id, cb) => {
