@@ -146,7 +146,9 @@ exports.updateUserRecruiterImage = (req, res) => {
             }
           })
         } else {
-          // pake fs
+          fs.unlinkSync(path + '/' + results[0].picture, (err, imgRes) => {
+            if (!err) console.log(imgRes)
+          })
           userModel.updateUserRecruiterImage(updateData, (err, results) => {
             if (!err) {
               return response(res, true, results, 200)
@@ -179,7 +181,6 @@ exports.updateProfile = (req, res) => {
 
 exports.updateUserTalentPicture = (req, res) => {
   const id = req.authUser.result.id
-  console.log(id)
   req.body.picture = req.file.filename
   const key = Object.keys(req.body)
   const lastColumn = key[0]

@@ -6,7 +6,7 @@ module.exports = {
 
   verifyJwt: (req, res, next) => {
     const headers = req.headers
-    if (headers?.authorization) {
+    if (headers.authorization !== undefined) {
       if (headers.authorization.startsWith('Bearer')) {
         try {
           const token = headers.authorization.slice(7)
@@ -17,9 +17,9 @@ module.exports = {
           console.log(err)
           return helper.response(res, false, 'Session expired, you have to login first', 400)
         }
-      } else {
-        return helper.response(res, false, 'Auth token needed', 400)
       }
+    } else {
+      return helper.response(res, false, 'Auth token needed', 400)
     }
   },
 
