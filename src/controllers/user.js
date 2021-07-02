@@ -35,7 +35,7 @@ exports.getTalentSkill = (req, res) => {
 }
 
 exports.getTalentList = (req, res) => {
-  const search = req.query.search || ''
+  const search = req.query.search || 'javascript'
   const sort = req.query.sort || 'id'
   const page = req.query.page || 1
   const limit = 4
