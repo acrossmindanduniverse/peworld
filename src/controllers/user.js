@@ -36,7 +36,7 @@ exports.getTalentSkill = (req, res) => {
 
 exports.getTalentList = async (req, res) => {
   const search = req.query.search || 'javascript'
-  let sort = req.query.sort || 'id'
+  let sort = req.query.sort || 'full_name'
   const page = req.query.page || 1
   const limit = 4
   let asc = 'ASC'
