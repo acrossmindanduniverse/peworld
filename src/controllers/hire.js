@@ -17,6 +17,7 @@ module.exports = {
       const result = await addHire(setData)
       return response(res, true, result, 200)
     } catch (err) {
+      console.log(err)
       return response(res, false, 'An error occured', 500)
     }
   },
