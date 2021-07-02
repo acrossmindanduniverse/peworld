@@ -7,6 +7,7 @@ const userExperienceController = require('../controllers/user_experience')
 const userPortofolioController = require('../controllers/user_portofolio')
 const authMiddleware = require('../middlewares/auth')
 
+router.patch('/talent/picture', verifyJwt, upload.single('picture'), userController.updateUserTalentPicture)
 router.get('/talent/', userController.getTalentList)
 router.put('/talent/', verifyJwt, userController.updateProfile)
 router.delete('/delete-experience/:id', authMiddleware.verifyJwt, userExperienceController.deleteUserExperience)
@@ -23,5 +24,4 @@ router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPorto
 
 router.put('/recruiter', verifyJwt, userController.updateUserRecruiter)
 router.patch('/recruiter/image', verifyJwt, upload.single('picture'), userController.updateUserRecruiterImage)
-
 module.exports = router
