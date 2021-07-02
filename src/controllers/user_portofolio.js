@@ -31,7 +31,7 @@ module.exports = {
   },
   deletePortofoliosUser: async (req, res) => {
     const idUser = req.authUser.result.id
-    const idPort = req.query.param
+    const { idPort } = req.params
     try {
       const result = await deletePortofoliosUser(idPort, idUser)
       return response(res, true, result, 200)
