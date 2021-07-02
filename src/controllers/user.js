@@ -162,7 +162,6 @@ exports.updateProfile = (req, res) => {
 
 exports.updateUserTalentPicture = (req, res) => {
   const id = req.authUser.result.id
-  console.log(id)
   req.body.picture = req.file.filename
   const key = Object.keys(req.body)
   const lastColumn = key[0]
