@@ -23,7 +23,6 @@ exports.getDetailTalent = (req, res) => {
 
 exports.getTalentSkill = (req, res) => {
   const { id } = req.params
-  // req.authUser.id
   userModel.getTalentSkill(id, (err, results) => {
     if (!err) {
       const skills = []
@@ -204,4 +203,25 @@ exports.updateUserTalentPicture = (req, res) => {
       return response(res, false, 'An error occured', 500)
     }
   })
+}
+
+exports.addTalentSkill = (req, res) => {
+  const id = req.authUser.result.id
+  let skills = req.body.skill
+  console.log(typeof skills)
+
+  if (typeof skills === 'string') {
+    skills = [skills]
+  }
+  console.log(skills)
+  skills.map((item, idx) => (
+    userModel.getSkillByName(skills[idx], (err, results) => {
+      if (err) throw err
+      const skillsId = results[0].id
+      userModel.addTalentSkill(id, skillsId, (err, results) => {
+        if (err) throw err
+      })
+    })
+  ))
+  return response(res, true, 'skills added', 200)
 }

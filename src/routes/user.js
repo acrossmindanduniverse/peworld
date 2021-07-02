@@ -21,7 +21,7 @@ router.get('/talent/skill/:id', userController.getTalentSkill)
 router.post('/talent/experience', verifyJwt, userExperienceController.createExperienceUser)
 router.delete('/talent/portofolio/:idPort', verifyJwt, userPortofolioController.deletePortofoliosUser)
 router.post('/talent/portofolio', verifyJwt, upload.single('picture'), userPortofolioController.createPortofolioUser)
-
+router.post('/talent/skill', verifyJwt, userController.addTalentSkill)
 router.put('/recruiter', verifyJwt, userController.updateUserRecruiter)
 router.patch('/recruiter/image', verifyJwt, upload.single('picture'), userController.updateUserRecruiterImage)
 module.exports = router
