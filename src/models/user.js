@@ -83,3 +83,13 @@ exports.updateUserTalentPicture = (data, cb) => {
   const lastColumn = key[key.length - 1]
   db.query(`UPDATE ?? SET ${lastColumn}=? WHERE id_user=?`, ['user_talent', [data[lastColumn]], data.id], cb)
 }
+exports.getSkillByName = (skill, cb) => {
+  db.query(`
+  SELECT id FROM skill WHERE skill_name=?
+`, [skill], cb)
+}
+
+exports.addTalentSkill = (id, skills, cb) => {
+  db.query(`
+  INSERT INTO user_skill (id_user, id_skill) VALUES (?,?)`, [id, skills], cb)
+}
