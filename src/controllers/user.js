@@ -1,5 +1,8 @@
 const userModel = require('../models/user')
 const { response } = require('../helpers')
+const path = './assets/pictures'
+const fs = require('fs')
+
 exports.getDetailTalent = (req, res) => {
   const { id } = req.params
   console.log('a')
@@ -160,5 +163,45 @@ exports.updateProfile = (req, res) => {
   userModel.updateProfileDetail(finalData, (err, results) => {
     if (err) throw err
     response(res, true, 'profle updated', 200)
+  })
+}
+
+exports.updateUserTalentPicture = (req, res) => {
+  const id = req.authUser.result.id
+  console.log(id)
+  req.body.picture = req.file.filename
+  const key = Object.keys(req.body)
+  const lastColumn = key[0]
+  const updateData = { id, [lastColumn]: req.body[lastColumn] }
+  userModel.getTalentById(id, (err, results) => {
+    if (!err) {
+      if (results.length > 0) {
+        if (results[0].picture === '') {
+          userModel.updateUserTalentPicture(updateData, (err, results) => {
+            if (!err) {
+              return response(res, true, results, 200)
+            } else {
+              return response(res, false, 'An error occured', 500)
+            }
+          })
+        } else {
+          const deletedImage = `${path}/${results[0].picture}`
+          fs.unlink(deletedImage, (err) => {
+            if (err) throw err
+          })
+          userModel.updateUserTalentPicture(updateData, (err, results) => {
+            if (!err) {
+              return response(res, true, results, 200)
+            } else {
+              return response(res, false, 'An error occured', 500)
+            }
+          })
+        }
+      } else {
+        return response(res, false, 'talent not found', 404)
+      }
+    } else {
+      return response(res, false, 'An error occured', 500)
+    }
   })
 }

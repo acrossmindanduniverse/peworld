@@ -77,3 +77,9 @@ exports.updateProfileDetail = (data, cb) => {
   UPDATE ?? SET job_desk=?,address=?,description=?,job_type=? WHERE id_user = ?
   `, ['user_talent', data.jobDesk, data.address, data.description, data.jobType, data.id], cb)
 }
+
+exports.updateUserTalentPicture = (data, cb) => {
+  const key = Object.keys(data)
+  const lastColumn = key[key.length - 1]
+  db.query(`UPDATE ?? SET ${lastColumn}=? WHERE id_user=?`, ['user_talent', [data[lastColumn]], data.id], cb)
+}
