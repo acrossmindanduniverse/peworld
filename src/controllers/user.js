@@ -9,11 +9,6 @@ exports.getDetailTalent = (req, res) => {
   userModel.getTalentById(id, (err, results) => {
     if (!err && results.length === 1) {
       const talent = results[0]
-
-      if (talent.picture !== null) {
-        talent.picture = `${process.env.APP_URL}/${talent.picture}`
-      }
-
       response(res, true, talent, 200)
     } else {
       response(res, false, 'talent not forund', 404)
@@ -134,7 +129,7 @@ exports.updateUserRecruiterImage = (req, res) => {
             }
           })
         } else {
-          // pake fs
+          fs.unlinkSync(path + '/' + results[0].picture)
           userModel.updateUserRecruiterImage(updateData, (err, results) => {
             if (!err) {
               return response(res, true, results, 200)

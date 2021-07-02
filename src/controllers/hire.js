@@ -1,5 +1,5 @@
 const { response } = require('../helpers')
-const { addHire } = require('../models/hire')
+const { addHire, getHireByIdUserTalent } = require('../models/hire')
 
 module.exports = {
 
@@ -16,6 +16,20 @@ module.exports = {
     try {
       const result = await addHire(setData)
       return response(res, true, result, 200)
+    } catch (err) {
+      return response(res, false, 'An error occured', 500)
+    }
+  },
+
+  getHireByIdUserTalent: async (req, res) => {
+    const id = req.authUser.result.id
+    try {
+      if (req.authUser.result.role === 'talent') {
+        const result = await getHireByIdUserTalent(id)
+        return response(res, true, result, 200)
+      } else {
+        return response(res, false, 'Only talent can access', 403)
+      }
     } catch (err) {
       return response(res, false, 'An error occured', 500)
     }
