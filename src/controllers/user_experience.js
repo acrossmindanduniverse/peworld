@@ -4,7 +4,8 @@ const { getExperiencesByIdUser, addExperiencesUser, updateUserExperience, getUse
 module.exports = {
 
   getExperiencesByIdUser: async (req, res) => {
-    const idUser = req.authUser.result.id
+    // const idUser = req.authUser.result.id
+    const { idUser } = req.params
     try {
       const result = await getExperiencesByIdUser(idUser)
       return response(res, true, result, 200)

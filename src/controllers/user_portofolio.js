@@ -5,7 +5,8 @@ const path = './assets/pictures'
 module.exports = {
 
   getPortofoliosByIdUser: async (req, res) => {
-    const idUser = req.authUser.result.id
+    // const idUser = req.authUser.result.id
+    const { idUser } = req.params
     try {
       const result = await getPortofoliosByIdUser(idUser)
       return response(res, true, result, 200)
