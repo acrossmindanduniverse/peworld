@@ -34,20 +34,32 @@ exports.getTalentSkill = (req, res) => {
   })
 }
 
-exports.getTalentList = (req, res) => {
+exports.getTalentList = async (req, res) => {
   const search = req.query.search || 'javascript'
-  const sort = req.query.sort || 'id'
+  let sort = req.query.sort || 'id'
   const page = req.query.page || 1
   const limit = 4
+  let asc = 'ASC'
   const offset = ((limit * page) - limit)
   const pageInfo = {}
+  if (sort === 'fulltime') {
+    sort = 'job_type'
+    asc = 'DESC'
+  }
+  if (sort === 'freelancer') {
+    sort = 'job_type'
+  }
+
   userModel.countTalent(search, (err, dataCount) => {
     if (err) throw err
     pageInfo.totalData = dataCount[0].count
     pageInfo.currentPage = page
     pageInfo.lastPage = Math.ceil(dataCount[0].count / limit)
   })
-  userModel.getTalentList(search, sort, offset, (err, results) => {
+  console.log(sort)
+  console.log(asc)
+  console.log(offset)
+  await userModel.getTalentList(search, sort, offset, asc, (err, results) => {
     if (err) throw err
     pageInfo.dataShowed = `from ${offset + 1} to ${results.length + offset}`
     if (page > pageInfo.lastPage || page < 1) {
