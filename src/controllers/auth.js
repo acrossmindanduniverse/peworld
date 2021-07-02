@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
 const { createNewToken } = require('../helpers/createToken')
 const authModels = require('../models/auth')
+const errors = require('../helpers/errors')
 const env = process.env
 
 module.exports = {
@@ -18,18 +19,18 @@ module.exports = {
     const errValidate = validationResult(req)
     try {
       if (!errValidate.isEmpty()) return helpers.response(res, false, errValidate.errors[0].msg, 400)
+      if (setData.password.length < 6) return helpers.response(res, false, errors.password, 400)
       authModels.talentRegister(setData, (error, resId) => {
-        console.log(error)
         if (!error) {
           const result = authModels.postToUserTalent(resId.insertId)
           return helpers.response(res, true, { result, registered }, 200)
         } else {
-          return helpers.response(res, false, 'An error occured', 500)
+          return helpers.response(res, false, 'failed to create account', 500)
         }
       })
     } catch (err) {
       console.log(err)
-      return helpers.response(res, false, 'failed to create account', 400)
+      return helpers.response(res, false, 'An error occured', 400)
     }
   },
 
@@ -43,13 +44,18 @@ module.exports = {
     }
     try {
       if (!errValidate.isEmpty()) return helpers.response(res, false, errValidate.errors[0].msg, 400)
-      authModels.recruiterRegister(setData, (_, resId) => {
-        const result = authModels.postToUserRecruiter(resId.insertId)
-        return helpers.response(res, true, { result, registered }, 200)
+      if (setData.password.length < 6) return helpers.response(res, false, errors.password, 400)
+      authModels.recruiterRegister(setData, (error, resId) => {
+        if (!error) {
+          const result = authModels.postToUserRecruiter(resId.insertId)
+          return helpers.response(res, true, { result, registered }, 200)
+        } else {
+          return helpers.response(res, false, 'failed to create account', 400)
+        }
       })
     } catch (err) {
       console.log(err)
-      return helpers.response(res, false, 'failed to create account', 400)
+      return helpers.response(res, false, 'An error occured', 400)
     }
   },
 
