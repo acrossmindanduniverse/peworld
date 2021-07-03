@@ -185,7 +185,7 @@ exports.updateUserTalentPicture = (req, res) => {
   userModel.getTalentById(id, (err, results) => {
     if (!err) {
       if (results.length > 0) {
-        if (results[0].picture === '') {
+        if (results[0].picture === '' || results[0].picture === null) {
           userModel.updateUserTalentPicture(updateData, (err, results) => {
             if (!err) {
               return response(res, true, results, 200)
