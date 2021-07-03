@@ -11,7 +11,7 @@ exports.getDetailTalent = (req, res) => {
       const talent = results[0]
 
       if (talent.picture !== null) {
-        talent.picture = `${process.env.APP_URL}/${talent.picture}`
+        talent.picture = `${talent.picture}`
       }
 
       response(res, true, talent, 200)
