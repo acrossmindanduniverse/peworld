@@ -56,9 +56,6 @@ exports.getTalentList = async (req, res) => {
     pageInfo.currentPage = page
     pageInfo.lastPage = Math.ceil(dataCount[0].count / limit)
   })
-  console.log(sort)
-  console.log(asc)
-  console.log(offset)
   await userModel.getTalentList(search, sort, offset, asc, (err, results) => {
     if (err) throw err
     pageInfo.dataShowed = `from ${offset + 1} to ${results.length + offset}`

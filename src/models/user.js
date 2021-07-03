@@ -23,7 +23,7 @@ exports.getTalentSkill = (id, cb) => {
 
 exports.getTalentList = (search, sort, offset, asc, cb) => {
   db.query(`
-  SELECT picture,full_name, job_desk, address, skill.skill_name, job_type FROM user_talent 
+  SELECT picture,full_name, job_desk, address, skill.skill_name, job_type, user_talent.id_user FROM user_talent 
   LEFT JOIN user_skill ON user_talent.id_user = user_skill.id_user
   LEFT JOIN skill ON user_skill.id_skill = skill.id
   LEFT JOIN user ON user_talent.id_user = user.id
