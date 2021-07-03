@@ -11,7 +11,7 @@ exports.getDetailTalent = (req, res) => {
       const talent = results[0]
 
       if (talent.picture !== null) {
-        talent.picture = `${talent.picture}`
+        talent.picture = `${process.env.APP_URL}/${talent.picture}`
       }
 
       response(res, true, talent, 200)
@@ -76,7 +76,7 @@ exports.getDetailRecruiter = async (req, res) => {
     return response(res, true, result, 200)
   } catch (err) {
     console.log(err)
-    return response(res, false, 'user experience not found', 400)
+    return response(res, false, 'recruiter not found', 400)
   }
 }
 
