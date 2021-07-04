@@ -5,7 +5,7 @@ const execPromise = promisify(db.query).bind(db)
 
 exports.getTalentById = (id, cb) => {
   db.query(`
-  SELECT picture,full_name,job_desk,address,job_type,description,email,phone_number
+  SELECT picture,full_name,job_desk,address,job_type,description,email,phone_number,company
   FROM user_talent 
   LEFT JOIN user ON user_talent.id_user = user.id
   WHERE id_user = ?
