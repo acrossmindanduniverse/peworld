@@ -16,7 +16,7 @@ exports.getDetailTalent = (req, res) => {
 
       response(res, true, talent, 200)
     } else {
-      response(res, false, 'talent not forund', 404)
+      response(res, false, 'talent not found', 404)
     }
   })
 }
